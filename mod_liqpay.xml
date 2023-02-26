@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+    <name>Liqpay module</name>
+    <author>Mykhailo Kulyk</author>
+    <creationDate>September 2022</creationDate>
+    <copyright>(C) 2006 Open Source Matters, Inc.</copyright>
+    <license>GNU General Public License v3.0; see LICENSE.txt</license>
+    <authorEmail>info@profisite.com.ua</authorEmail>
+    <authorUrl>www.profisite.com.ua</authorUrl>
+    <version>1.0.0</version>
+    <description>Liqpay module for site payments</description>
+    <namespace path="src">Joomla\Module\Liqpay</namespace>
+    <files>
+        <folder>assets</folder>
+        <folder>forms</folder>
+        <folder>services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <filename module="mod_liqpay">helper.php</filename>
+        <filename module="mod_liqpay">joomla.asset.json</filename>
+    </files>
+    <languages folder="languages">
+        <language tag="en-GB">en-GB/mod_liqpay.sys.ini</language>
+        <language tag="en-GB">en-GB/mod_liqpay.ini</language>
+        <language tag="de-DE">en-GB/mod_liqpay.sys.ini</language>
+        <language tag="de-DE">en-GB/mod_liqpay.ini</language>
+        <language tag="uk-UA">uk-UA/mod_liqpay.sys.ini</language>
+        <language tag="uk-UA">uk-UA/mod_liqpay.ini</language>
+        <language tag="ru-RU">ru-RU/mod_liqpay.sys.ini</language>
+        <language tag="ru-RU">ru-RU/mod_liqpay.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+
+
+            <fieldset name="basic">
+
+                <field name="logotype"
+                       type="media"
+                       directory="images"
+                       label="MOD_LIQPAY_LOGOTYPE_LABEL"
+                       required="true"
+                />
+
+                <field name="name"
+                       type="text"
+                       default=""
+                       label="MOD_LIQPAY_NAME_LABEL"
+                       size="5"
+                       filter="string"
+                       required="true"
+                />
+
+                <field name="public_key" type="text"
+                       default="sandbox_i64157259449"
+                       label="MOD_LIQPAY_PUBLIC_KEY_LABEL"
+                       size="5"
+                       filter="string"
+                       required="true"
+                />
+
+                <field name="private_key" type="text"
+                       default="sandbox_A1g9kuNCng0EDGMCH13bhGP2CCOKknVyCLHi4rKq"
+                       label="MOD_LIQPAY_PRIVATE_KEY_LABEL"
+                       size="5"
+                       required="true"
+                />
+
+                <field
+                        name="payment_type"
+                        type="list"
+                        label="MOD_LIQPAY_PAYMENT_TYPE_LABEL"
+                        default="simple"
+                        filter="string"
+                        validate="options"
+                >
+                    <option value="simple">MOD_LIQPAY_SIMPLE_PAYMENT_TYPE</option>
+                    <option value="group">MOD_LIQPAY_SIMPLE_GROUP_TYPE</option>
+                </field>
+
+                <field
+                        name="currency"
+                        type="list"
+                        label="MOD_LIQPAY_CURRENCY_LABEL"
+                        default="UAH"
+                        filter="string"
+                        validate="options"
+                >
+                    <option value="UAH">UAH</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </field>
+
+                <field
+                        name="action"
+                        type="list"
+                        label="MOD_LIQPAY_ACTION_TYPE_LABEL"
+                        default="pay"
+                        filter="string"
+                        validate="options"
+                >
+                    <option value="pay">pay</option>
+                    <option value="paydonate">paydonate</option>
+                </field>
+
+
+                <field name="available_payments" type="checkboxes"
+                       multiple="true"
+                       checked="privat24,card,wallet"
+                       label="MOD_LIQPAY_AVAILABLE_PAYMENTS_LABEL">
+                    <option value="privat24">MOD_LIQPAY_PAYMENT_TYPE_PRIVAT_24</option>
+                    <option value="card">MOD_LIQPAY_PAYMENT_TYPE_CARD</option>
+                    <option value="wallet">MOD_LIQPAY_PAYMENT_TYPE_WALLET</option>
+                    <option value="qr">MOD_LIQPAY_PAYMENT_TYPE_QR</option>
+                    <option value="invoice">MOD_LIQPAY_PAYMENT_TYPE_INVOICE</option>
+                    <option value="apay">MOD_LIQPAY_PAYMENT_TYPE_APPLE_PAY</option>
+                    <option value="gpay">MOD_LIQPAY_PAYMENT_TYPE_GOOGLE_PAY</option>
+                    <option value="masterpass">MOD_LIQPAY_PAYMENT_TYPE_MASTERPASS</option>
+                </field>
+
+
+                <field name="email" type="email"
+                       default=""
+                       label="MOD_LIQPAY_EMAIL_LABEL"
+                       size="30"
+                       validate="email"
+                       required="true"
+                />
+
+            </fieldset>
+
+            <fieldset name="simple">
+
+                <field name="purpose_of_payment"
+                       type="textarea"
+                       label="MOD_LIQPAY_DESCRIPTION_LABEL"
+                       rows="3"
+                       class="inputbox"/>
+
+                <field
+                        name="readonly_purpose_of_payment"
+                        type="radio"
+                        layout="joomla.form.field.radio.switcher"
+                        label="MOD_LIQPAY_READONLY_DESCRIPTION_LABEL"
+                        default="0"
+                        filter="integer"
+                >
+                    <option value="0">JHIDE</option>
+                    <option value="1">JSHOW</option>
+                </field>
+
+                <field
+                        name="default_amount"
+                        type="text"
+                        filter="integer"
+                        label="MOD_LIQPAY_DEFAULT_AMOUNT_LABEL"
+                        class="inputbox"/>
+
+                <field name="amounts"
+                       type="subform"
+                       formsource="modules/mod_liqpay/forms/tags.xml"
+                       max="7"
+                       multiple="true"
+                       layout="joomla.form.field.subform.repeatable-table"
+                       label="MOD_LIQPAY_AMOUNTS_CHOICE_LABEL"/>
+
+
+                <field name="additional_info"
+                       type="editor"
+                       label="MOD_LIQPAY_ADDITIONAL_INFO_LABEL"
+                       width="100%"
+                       filter="safehtml" />
+
+            </fieldset>
+
+
+            <fieldset name="advanced">
+                <field
+                        name="layout"
+                        type="modulelayout"
+                        label="JFIELD_ALT_LAYOUT_LABEL"
+                        description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+                        validate="moduleLayout"
+                />
+
+                <field
+                        name="moduleclass_sfx"
+                        type="textarea"
+                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                        description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                        rows="3"
+                />
+
+                <field
+                        name="cache"
+                        type="list"
+                        label="COM_MODULES_FIELD_CACHING_LABEL"
+                        description="COM_MODULES_FIELD_CACHING_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+
+                <field
+                        name="cache_time"
+                        type="number"
+                        label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                        description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+                        default="900"
+                        filter="integer"
+                />
+            </fieldset>
+
+        </fields>
+    </config>
+</extension>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form class="form-validate">
+
+    <field name="amount"
+           type="text"
+           label="MOD_LIQPAY_AMOUNT_LABEL"
+           required="true"
+           size="40"
+           class="form-control"/>
+
+    <field
+            name="currency"
+            type="list"
+            label="MOD_LIQPAY_CURRENCY_LABEL"
+            required="true"
+            default="UAH"
+            filter="string"
+            validate="options"
+            class="form-select"
+    >
+        <option value="UAH">UAH</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+    </field>
+
+
+    <field name="description"
+           type="textarea"
+           label="MOD_LIQPAY_DESCRIPTION_LABEL"
+           required="true"
+           rows="4"
+           class="form-control"/>
+
+
+    <field name="module_id"
+           type="hidden"
+           default=""/>
+
+    <field name="btn_text"
+           type="hidden"
+           default=""/>
+
+    <field name="route"
+           type="hidden"
+           default=""/>
+
+
+</form>

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "mod_liqpay",
+  "version": "1.0.0",
+  "description": "",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "module.liqpay.css",
+      "description": "The default css style for liqpay module.",
+      "type": "style",
+      "uri": "modules/mod_liqpay/assets/css/liqpay.css",
+      "dependencies": [
+        "bootstrap.css"
+      ]
+    },
+    {
+      "name": "module.liqpay.js",
+      "description": "The default js for liqpay module.",
+      "type": "script",
+      "uri": "modules/mod_liqpay/assets/js/liqpay.js",
+      "dependencies": [
+        "jquery", "bootstrap.es5"
+      ]
+    }
+  ]
+}
