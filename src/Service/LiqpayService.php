@@ -19,14 +19,13 @@ namespace Joomla\Module\Liqpay\Site\Service;
 // phpcs:enable PSR1.Files.SideEffects
 
 
-use Joomla\CMS\Application\SiteApplication;
-use Joomla\CMS\Router\Router;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Application\CMSApplicationInterface;
-use Joomla\Module\Liqpay\Site\Helper\LiqpayFieldsInterface;
+use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
+use Joomla\Module\Liqpay\Site\Contracts\MessageInterface;
 use Joomla\Module\Liqpay\Site\Library\LiqPayPayment;
 use Joomla\Module\Liqpay\Site\Library\Traits\DynamicPropertiesTrait;
 use Joomla\Module\Liqpay\Site\Library\Traits\MailerTrait;
@@ -44,7 +43,7 @@ use Joomla\Registry\Registry;
  * @property array      $paymentTypes
  * @since  4.2.0
  */
-final class LiqpayService implements LiqpayFieldsInterface
+final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
 {
 
     /**
@@ -66,17 +65,6 @@ final class LiqpayService implements LiqpayFieldsInterface
      */
     private const CURRENCIES = [
         'USD' => '$', 'EUR' => '€', 'UAH' => '₴'
-    ];
-
-
-    /**
-     * @var \string[][]
-     * @since 4.2.0
-     */
-    private const MSG = [
-        'success' => 'success',
-        'warning' => 'warning',
-        'error' => 'error',
     ];
 
 

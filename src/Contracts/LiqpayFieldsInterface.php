@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @since
  */
 
-namespace Joomla\Module\Liqpay\Site\Helper;
+namespace Joomla\Module\Liqpay\Site\Contracts;
 
 
 interface LiqpayFieldsInterface

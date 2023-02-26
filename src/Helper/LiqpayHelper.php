@@ -25,6 +25,7 @@ use Joomla\CMS\Form\Form;
 use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
 use Joomla\Module\Liqpay\Site\Service\LiqpayService;
 use Joomla\Registry\Registry;
+use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 
 
 /**

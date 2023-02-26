@@ -11,9 +11,18 @@ declare(strict_types=1);
  * @since
  */
 
-namespace Joomla\Module\Liqpay\Site\Helper;
+namespace Joomla\Module\Liqpay\Site\Contracts;
 
 interface MessageInterface
 {
 
+    /**
+     * @var \string[][]
+     * @since 4.2.0
+     */
+    public const MSG = [
+        'success' => 'success',
+        'warning' => 'warning',
+        'error' => 'error',
+    ];
 }
