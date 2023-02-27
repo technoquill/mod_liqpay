@@ -148,9 +148,9 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
                 $this->sendServiceMail(
                     self::$app,
                     $registry->get('email'),
-                    Text::_('Новий платіж в системі LiqPay'),
+                    Text::_('MOD_LIQPAY_NEW_PAYMENT'),
                     Text::sprintf(
-                        'Ви отримали новий платіж в системі LiqPay за номером %b в розмірі %d%s. Платник %s %s, номер телефону %s',
+                        'MOD_LIQPAY_RECEIVED_THE_PAYMENT',
                         $api->order_id, $api->amount, $api->currency, $api->sender_first_name, $api->sender_last_name, $api->sender_phone)
                 );
             }
@@ -183,10 +183,10 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
                 );
             // then client message
             if ($api->status === self::MSG['success']) {
-                self::$app->enqueueMessage(Text::_('Дякуємо за Ваш внесок'), CMSApplicationInterface::MSG_NOTICE);
+                self::$app->enqueueMessage(Text::_('MOD_LIQPAY_THANKS'), CMSApplicationInterface::MSG_NOTICE);
             }
             if ($api->status === self::MSG['error']) {
-                self::$app->enqueueMessage(Text::_('Ваш внесок не зараховано'), CMSApplicationInterface::MSG_WARNING);
+                self::$app->enqueueMessage(Text::_('MOD_LIQPAY_PAYMENT_NOT_COUNTED'), CMSApplicationInterface::MSG_WARNING);
             }
             // set redirect
             self::$app->redirect(Route::_($redirectUrl));
