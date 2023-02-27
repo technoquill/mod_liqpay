@@ -21,8 +21,9 @@ namespace Joomla\Module\Liqpay\Site\Service;
 
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
+use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 use Joomla\Module\Liqpay\Site\Contracts\MessageInterface;
@@ -30,7 +31,6 @@ use Joomla\Module\Liqpay\Site\Library\LiqPayPayment;
 use Joomla\Module\Liqpay\Site\Library\Traits\DynamicPropertiesTrait;
 use Joomla\Module\Liqpay\Site\Library\Traits\MailerTrait;
 use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
-use Joomla\Registry\Registry;
 
 
 /**

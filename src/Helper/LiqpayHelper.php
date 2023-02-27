@@ -20,12 +20,15 @@ namespace Joomla\Module\Liqpay\Site\Helper;
 // phpcs:enable PSR1.Files.SideEffects
 
 
+use Exception;
+use JsonException;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
-use Joomla\Module\Liqpay\Site\Service\LiqpayService;
 use Joomla\Registry\Registry;
+use Joomla\Module\Liqpay\Site\Service\LiqpayService;
 use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
+use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
+use Joomla\Module\Liqpay\Site\Library\Traits\BindTrait;
 
 
 /**
@@ -37,7 +40,7 @@ class LiqpayHelper implements LiqpayFieldsInterface
 {
 
     /**
-     * @var \Joomla\Module\Liqpay\Site\Service\LiqpayService
+     * @var LiqpayService
      * @since 4.2.0
      */
     public LiqpayService $service;
@@ -62,13 +65,13 @@ class LiqpayHelper implements LiqpayFieldsInterface
     public array $data = [];
 
 
-    use ModuleTrait;
+    use BindTrait, ModuleTrait;
 
 
     /**
      *
-     * @throws \Exception
-     * @since 4.2
+     * @throws Exception
+     * @since 4.2.0
      */
     public function __construct(array $data = [])
     {
@@ -90,7 +93,7 @@ class LiqpayHelper implements LiqpayFieldsInterface
      *
      * @return array
      *
-     * @throws \JsonException
+     * @throws JsonException
      * @since 4.2.0
      */
     final public function getAjax(): array
@@ -110,8 +113,8 @@ class LiqpayHelper implements LiqpayFieldsInterface
 
 
     /**
-     * @throws \JsonException
-     * @since
+     * @throws JsonException
+     * @since  4.2.0
      * @author overnet
      */
     final public function finishAndRedirectAfterOrder(Registry $registry): void
@@ -122,20 +125,10 @@ class LiqpayHelper implements LiqpayFieldsInterface
 
 
     /**
-     * @param array $methods
-     *
-     *
-     * @since 4.2.0
+     * @throws Exception
+     * @since  4.2.0
+     * @author overnet
      */
-    private function bind(array $methods = []): void
-    {
-        foreach ($methods as $method) {
-            if (method_exists($this, $method)) {
-                $this->$method();
-            }
-        }
-    }
-
     private function bindService(): void
     {
         $app = Factory::getApplication();
