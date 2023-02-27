@@ -22,9 +22,9 @@ namespace Joomla\Module\Liqpay\Site\Helper;
 
 use Exception;
 use JsonException;
+use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\Registry\Registry;
 use Joomla\Module\Liqpay\Site\Service\LiqpayService;
 use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
@@ -49,7 +49,7 @@ class LiqpayHelper implements LiqpayFieldsInterface
      * @var object|null
      * @since
      */
-    public ?object $moduleParams = null;
+    public ?object $attributes = null;
 
     /**
      * @var \Joomla\CMS\Form\Form|null
@@ -83,7 +83,7 @@ class LiqpayHelper implements LiqpayFieldsInterface
             $this->data = $data;
         }
         if ($data['params']) {
-            $this->moduleParams = $this->moduleFields($data['params']);
+            $this->attributes = $this->moduleFields($data['params']);
             $this->finishAndRedirectAfterOrder($data['params']);
         }
     }

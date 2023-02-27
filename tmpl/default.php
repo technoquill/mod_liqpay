@@ -25,34 +25,34 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
         <div class="row">
 
-            <?php if ($model->moduleParams->payment_type === $model::PAYMENT_TYPE_SIMPLE) : ?>
+            <?php if ($model->attributes->payment_type === $model::PAYMENT_TYPE_SIMPLE) : ?>
 
-                <div class=" <?php if ($model->moduleParams->additional_info !== "") : ?>col-lg-7<?php endif ?> col-md-12">
+                <div class=" <?php if ($model->attributes->additional_info !== "") : ?>col-lg-7<?php endif ?> col-md-12">
 
-                    <?php if ($model->moduleParams->logotype !== "" && $model->moduleParams->name !== "") : ?>
+                    <?php if ($model->attributes->logotype !== "" && $model->attributes->name !== "") : ?>
 
                         <div class="row">
                             <div class="col-auto">
                                 <div class="logotype-wrapper">
-                                    <?= HTMLHelper::_('image', $model->moduleParams->logotype, $model->moduleParams->name, [
+                                    <?= HTMLHelper::_('image', $model->attributes->logotype, $model->attributes->name, [
                                         'class' => 'img-fluid'
                                     ], false) ?>
                                 </div>
                             </div>
                             <div class="col-auto align-self-center">
-                                <h5><?= $model->moduleParams->name ?></h5>
+                                <h5><?= $model->attributes->name ?></h5>
                             </div>
                         </div>
                     <?php endif ?>
 
-                    <?php if (count($model->moduleParams->amounts)) : ?>
+                    <?php if (count($model->attributes->amounts)) : ?>
                         <div class="col-md-12">
                             <div class="amounts">
-                                <?php foreach ($model->moduleParams->amounts as $amount) : ?>
+                                <?php foreach ($model->attributes->amounts as $amount) : ?>
                                     <span data-value="<?= $amount['value'] ?>"
-                                          class="amount-tag<?php if ((int)$model->moduleParams->default_amount === (int)$amount['value']) : ?> active<?php endif ?>">
+                                          class="amount-tag<?php if ((int)$model->attributes->default_amount === (int)$amount['value']) : ?> active<?php endif ?>">
                                 <em class="value"><?= $amount['value'] ?></em>
-                                <em class="symbol"><?= $model->service->currencySymbol[$model->moduleParams->currency] ?></em></span>
+                                <em class="symbol"><?= $model->service->currencySymbol[$model->attributes->currency] ?></em></span>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -63,22 +63,22 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                               id="<?= $model->form->getName() ?>"
                               enctype="multipart/form-data">
                             <?php // Set Field Attributes
-                            $model->form->setFieldAttribute($model::FIELD_DESCRIPTION, 'readonly', !(bool)$model->moduleParams->readonly_purpose_of_payment)
+                            $model->form->setFieldAttribute($model::FIELD_DESCRIPTION, 'readonly', !(bool)$model->attributes->readonly_purpose_of_payment)
                             ?>
 
                             <div class="col-md-7">
-                                <?= $model->form->renderField($model::FIELD_AMOUNT, null, $model->moduleParams->default_amount) ?>
+                                <?= $model->form->renderField($model::FIELD_AMOUNT, null, $model->attributes->default_amount) ?>
                             </div>
 
                             <div class="col-md-5">
-                                <?= $model->form->renderField($model::FIELD_CURRENCY, null, $model->moduleParams->currency) ?>
+                                <?= $model->form->renderField($model::FIELD_CURRENCY, null, $model->attributes->currency) ?>
                             </div>
 
 
                             <div class="col-md-12">
 
-                                <div class="fields<?php if ($model->moduleParams->purpose_of_payment === "") : ?> d-none<?php endif ?>">
-                                    <?= $model->form->renderField($model::FIELD_DESCRIPTION, null, $model->moduleParams->purpose_of_payment) ?>
+                                <div class="fields<?php if ($model->attributes->purpose_of_payment === "") : ?> d-none<?php endif ?>">
+                                    <?= $model->form->renderField($model::FIELD_DESCRIPTION, null, $model->attributes->purpose_of_payment) ?>
                                 </div>
 
 
@@ -91,10 +91,10 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                                 <?= JHtml::_('form.token') ?>
                             </div>
 
-                            <?php if (count($model->moduleParams->available_payments)) : ?>
+                            <?php if (count($model->attributes->available_payments)) : ?>
                                 <div class="col-md-12">
                                     <ul class="payment-methods">
-                                        <?php foreach ($model->moduleParams->available_payments as $value) : ?>
+                                        <?php foreach ($model->attributes->available_payments as $value) : ?>
                                             <?php $imageSrc = JUri::base() . "modules/mod_liqpay/assets/images/methods/icon-{$value}.svg" ?>
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                 title="<?= $model->service->paymentTypes[$value] ?>">
@@ -124,10 +124,10 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                 </div>
 
 
-                <?php if ($model->moduleParams->additional_info !== "") : ?>
+                <?php if ($model->attributes->additional_info !== "") : ?>
                     <div class="col-lg-5 col-md-12">
                         <div class="additional-info">
-                            <?= $model->moduleParams->additional_info ?>
+                            <?= $model->attributes->additional_info ?>
                         </div>
                     </div>
                 <?php endif ?>
