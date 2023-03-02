@@ -6,10 +6,11 @@ const currencies = {
 
 function generateForm() {
     Joomla.request({
-        url: '?option=com_ajax&module=liqpay&method=get&format=json',
-        method: 'POST',
+        url: 'index.php?option=com_ajax&module=liqpay&method=get&format=json',
+        method: 'post',
         headers: {
             'Cache-Control': 'no-cache',
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: JSON.stringify({
             amount: jQuery('#amount').val(),
@@ -20,12 +21,13 @@ function generateForm() {
             route: jQuery('#route').val()
         }),
         onBefore: function (xhr) {
-            // if return false - query stops
+            //console.log(xhr);
+            // if return false - query will stop
         },
         onSuccess: function (response, xhr) {
             if (response !== '') {
                 let result = JSON.parse(response);
-                console.log(result);
+                //console.log(result.data.form);
                 jQuery('#liqpay-form-result').html(result.data.form);
             }
         },

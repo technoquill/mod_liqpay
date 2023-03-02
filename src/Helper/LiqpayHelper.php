@@ -21,8 +21,10 @@ namespace Joomla\Module\Liqpay\Site\Helper;
 
 
 use Exception;
+use Joomla\CMS\HTML\HTMLHelper;
 use JsonException;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\Module\Liqpay\Site\Service\LiqpayService;
@@ -100,11 +102,13 @@ class LiqpayHelper implements LiqpayFieldsInterface
     {
         $result['success'] = false;
 
-        if ($this->service->ajaxDataResult['amount'] !== null && trim($this->service->ajaxDataResult['amount']) !== "") {
-            $result['form'] = $this->service->ajaxForm();
-            $result['success'] = true;
-        } else {
-            $result['form'] = $this->service->inactiveForm($this->service->ajaxDataResult['btn_text']);
+        if (Session::checkToken()) {
+            if ($this->service->ajaxDataResult['amount'] !== null && trim($this->service->ajaxDataResult['amount']) !== "") {
+                $result['form'] = $this->service->ajaxForm();
+                $result['success'] = true;
+            } else {
+                $result['form'] = $this->service->inactiveForm($this->service->ajaxDataResult['btn_text']);
+            }
         }
 
         return $result;
@@ -141,6 +145,8 @@ class LiqpayHelper implements LiqpayFieldsInterface
      */
     private function bindForm(): void
     {
+        HTMLHelper::_('form.csrf');
+
         $form = new Form(self::FORM_NAME, [
             'control' => false,
             'class' => 'form-validate'

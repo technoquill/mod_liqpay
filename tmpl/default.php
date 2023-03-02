@@ -60,8 +60,7 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
                     <div class="col-md-12">
                         <form method="post" name="<?= $model->form->getName() ?>" class="form-validate row"
-                              id="<?= $model->form->getName() ?>"
-                              enctype="multipart/form-data">
+                              id="<?= $model->form->getName() ?>">
                             <?php // Set Field Attributes
                             $model->form->setFieldAttribute($model::FIELD_DESCRIPTION, 'readonly', !(bool)$model->attributes->readonly_purpose_of_payment)
                             ?>
@@ -88,7 +87,7 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
                                 <?= $model->form->renderField($model::FIELD_ROUTE, null, urlencode($model->service->currentRoute)) ?>
 
-                                <?= JHtml::_('form.token') ?>
+                                <?= HTMLHelper::_('form.csrf') ?>
                             </div>
 
                             <?php if (count($model->attributes->available_payments)) : ?>
@@ -131,6 +130,10 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                         </div>
                     </div>
                 <?php endif ?>
+
+            <?php else : ?>
+
+            <!-- Here is a group payment -->
 
             <?php endif ?>
 
