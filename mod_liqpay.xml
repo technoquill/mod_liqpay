@@ -131,14 +131,14 @@
 
             <fieldset name="simple">
 
-                <field name="purpose_of_payment"
+                <field name="simple_payment_purpose_of_payment"
                        type="textarea"
                        label="MOD_LIQPAY_DESCRIPTION_LABEL"
                        rows="3"
                        class="inputbox"/>
 
                 <field
-                        name="readonly_purpose_of_payment"
+                        name="simple_payment_readonly_purpose_of_payment"
                         type="radio"
                         layout="joomla.form.field.radio.switcher"
                         label="MOD_LIQPAY_READONLY_DESCRIPTION_LABEL"
@@ -150,13 +150,13 @@
                 </field>
 
                 <field
-                        name="default_amount"
+                        name="simple_payment_default_amount"
                         type="text"
                         filter="integer"
                         label="MOD_LIQPAY_DEFAULT_AMOUNT_LABEL"
                         class="inputbox"/>
 
-                <field name="amounts"
+                <field name="simple_payment_amounts"
                        type="subform"
                        formsource="modules/mod_liqpay/forms/tags.xml"
                        max="7"
@@ -165,9 +165,36 @@
                        label="MOD_LIQPAY_AMOUNTS_CHOICE_LABEL"/>
 
 
-                <field name="additional_info"
+                <field name="simple_payment_additional_info"
                        type="editor"
                        label="MOD_LIQPAY_ADDITIONAL_INFO_LABEL"
+                       width="100%"
+                       filter="safehtml" />
+
+            </fieldset>
+
+            <fieldset name="group">
+
+
+                <field name="group_payment"
+                       type="subform"
+                       formsource="modules/mod_liqpay/forms/group.xml"
+                       max="7"
+                       multiple="true"
+                       layout="joomla.form.field.subform.repeatable-table"
+                       label="MOD_LIQPAY_GROUP_PAYMENT_LIST_LABEL"/>
+
+
+                <field name="group_payment_text_before"
+                       type="editor"
+                       label="MOD_LIQPAY_GROUP_PAYMENT_TEXT_BEFORE_LABEL"
+                       width="100%"
+                       filter="safehtml" />
+
+
+                <field name="group_payment_text_after"
+                       type="editor"
+                       label="MOD_LIQPAY_GROUP_PAYMENT_TEXT_AFTER_LABEL"
                        width="100%"
                        filter="safehtml" />
 

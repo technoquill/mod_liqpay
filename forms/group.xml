@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+
+    <field name="group_payment_description"
+           type="textarea"
+           default=""
+           label="MOD_LIQPAY_GROUP_PAYMENT_DESCRIPTION_LABEL"
+           rows="3"
+           filter="string"
+           required="true"
+    />
+
+    <field name="group_payment_service_description"
+           type="text"
+           default=""
+           label="MOD_LIQPAY_GROUP_PAYMENT_SERVICE_DESCRIPTION_LABEL"
+           filter="string"
+           required="true"
+    />
+
+    <field
+            name="group_payment_old_price"
+            type="text"
+            filter="integer"
+            size="10"
+            label="MOD_LIQPAY_GROUP_PAYMENT_OLD_PRICE_LABEL"
+            class="inputbox"/>
+
+    <field
+            name="group_payment_price"
+            type="text"
+            filter="integer"
+            size="10"
+            label="MOD_LIQPAY_GROUP_PAYMENT_PRICE_LABEL"
+            class="inputbox"
+            required="true"/>
+
+    <field
+            name="group_payment_special_offer"
+            type="radio"
+            layout="joomla.form.field.radio.switcher"
+            label="MOD_LIQPAY_GROUP_PAYMENT_SPECIAL_OFFER_LABEL"
+            default="0"
+            filter="integer"
+    >
+        <option value="0">JHIDE</option>
+        <option value="1">JSHOW</option>
+    </field>
+
+
+</form>

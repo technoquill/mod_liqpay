@@ -27,7 +27,7 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
             <?php if ($model->attributes->payment_type === $model::PAYMENT_TYPE_SIMPLE) : ?>
 
-                <div class=" <?php if ($model->attributes->additional_info !== "") : ?>col-lg-7<?php endif ?> col-md-12">
+                <div class="col-lg-7 col-md-12">
 
                     <?php if ($model->attributes->logotype !== "" && $model->attributes->name !== "") : ?>
 
@@ -45,10 +45,10 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                         </div>
                     <?php endif ?>
 
-                    <?php if (count($model->attributes->amounts)) : ?>
+                    <?php if (count($model->attributes->simple_payment_amounts)) : ?>
                         <div class="col-md-12">
                             <div class="amounts">
-                                <?php foreach ($model->attributes->amounts as $amount) : ?>
+                                <?php foreach ($model->attributes->simple_payment_amounts as $amount) : ?>
                                     <span data-value="<?= $amount['value'] ?>"
                                           class="amount-tag<?php if ((int)$model->attributes->default_amount === (int)$amount['value']) : ?> active<?php endif ?>">
                                 <em class="value"><?= $amount['value'] ?></em>
@@ -66,7 +66,7 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                             ?>
 
                             <div class="col-md-7">
-                                <?= $model->form->renderField($model::FIELD_AMOUNT, null, $model->attributes->default_amount) ?>
+                                <?= $model->form->renderField($model::FIELD_AMOUNT, null, $model->attributes->simple_payment_default_amount) ?>
                             </div>
 
                             <div class="col-md-5">
@@ -77,7 +77,7 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
                             <div class="col-md-12">
 
                                 <div class="fields<?php if ($model->attributes->purpose_of_payment === "") : ?> d-none<?php endif ?>">
-                                    <?= $model->form->renderField($model::FIELD_DESCRIPTION, null, $model->attributes->purpose_of_payment) ?>
+                                    <?= $model->form->renderField($model::FIELD_DESCRIPTION, null, $model->attributes->simple_payment_purpose_of_payment) ?>
                                 </div>
 
 
@@ -134,6 +134,8 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
             <?php else : ?>
 
             <!-- Here is a group payment -->
+
+            <?= dd($model->attributes->group_payment) ?>
 
             <?php endif ?>
 
