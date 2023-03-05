@@ -36,7 +36,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
      *
      * @since   4.2.0
      */
-    protected function getLayoutData()
+    final protected function getLayoutData(): array
     {
         /**
          * "module" => {}
@@ -44,13 +44,15 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
          * "input" => Joomla\CMS\Input\Input,
          * "params" => Joomla\Registry\Registry,
          * "template" => ""
-         * "model" => Helper
+         * "model" => ModuleHelper
          */
         $data = parent::getLayoutData();
 
         $data['model'] = $this->getHelperFactory()
             ->getHelper('LiqpayHelper', [
-                'params' => $data['params']
+                'module' => $data['module'],
+                'params' => $data['params'],
+                'app' => $data['app'],
             ]);
 
         return $data;

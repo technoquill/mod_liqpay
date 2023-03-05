@@ -60,22 +60,23 @@ trait ModuleTrait
     }
 
     /**
-     * @param \Joomla\Registry\Registry $registry
+     * @param Registry $registry
+     * @param array    $params
      *
-     * @return object
+     * @return array
      * @author overnet
      * @since  4.2.0
      */
-    public function moduleFields(Registry $registry): object
+    public function moduleFields(Registry $registry, array $params = []): array
     {
         $array = [];
-        foreach ($registry as $key => $param) {
-            $array[$key] = is_object($param) ? array_map(static function ($param) {
-                return (array)$param;
-            }, (array)$param) : $param;
+        foreach ($registry as $key => $value) {
+            $array[$key] = is_object($value) ? get_object_vars($value) : $value;
+//            $array[$key] = is_object($value) ? array_map(static function ($value) {
+//                return (array)$value;
+//            }, (array)$value) : $value;
         }
-        return (object)$array;
-
+        return array_merge($params, $array);
     }
 
 }

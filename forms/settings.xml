@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+    <field
+            name="show_logo_and_name"
+            type="radio"
+            layout="joomla.form.field.radio.switcher"
+            label="MOD_LIQPAY_SETTINGS_SHOW_LOGO_AND_NAME_LABEL"
+            default="1"
+            filter="integer"
+    >
+        <option value="0">JHIDE</option>
+        <option value="1">JSHOW</option>
+    </field>
+
+
+    <field
+            name="show_additional_info"
+            type="radio"
+            layout="joomla.form.field.radio.switcher"
+            label="MOD_LIQPAY_SETTINGS_SHOW_ADDITIONAL_INFO_LABEL"
+            default="1"
+            filter="integer"
+    >
+        <option value="0">JHIDE</option>
+        <option value="1">JSHOW</option>
+    </field>
+
+    <field
+            name="show_payments_method"
+            type="radio"
+            layout="joomla.form.field.radio.switcher"
+            label="MOD_LIQPAY_SETTINGS_SHOW_PAYMENTS_METHOD_LABEL"
+            default="1"
+            filter="integer"
+    >
+        <option value="0">JHIDE</option>
+        <option value="1">JSHOW</option>
+    </field>
+
+
+</form>

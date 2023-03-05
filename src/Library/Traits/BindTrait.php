@@ -19,14 +19,13 @@ trait BindTrait
     /**
      * @param array $methods
      *
-     *
      * @since 4.2.0
      */
-    private function bind(array $methods = []): void
+    private function bind(array $methods): void
     {
-        foreach ($methods as $method) {
-            if (method_exists($this, $method)) {
-                $this->$method();
+        foreach ($methods as $key => $value) {
+            if (method_exists($this, $key)) {
+                $this->$key($value);
             }
         }
     }

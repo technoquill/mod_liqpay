@@ -1,21 +1,35 @@
-.liqpay-wrapper {
+.mod-liqpay-wrapper {
   background: rgba(128, 128, 128, 0.25);
   padding: 2rem;
 }
-.liqpay-wrapper .liqpay-view {
+.mod-liqpay-wrapper .mod-liqpay-view {
   background: white;
   padding: 2rem;
 }
-.liqpay-wrapper .logotype-wrapper, .liqpay-wrapper h5 {
+.mod-liqpay-wrapper-group .mod-liqpay-table-view {
+  border: 0.0625rem solid rgba(128, 128, 128, 0.0625);
+  padding: 0 1rem;
+  margin: 0 -1rem;
+}
+.mod-liqpay-wrapper-group .even div[class*=col], .mod-liqpay-wrapper-group .odd div[class*=col] {
+  padding: 1rem 0.5rem;
+}
+.mod-liqpay-wrapper-group .odd {
+  background: rgba(128, 128, 128, 0.0625);
+}
+
+.mod-liqpay-logotype-wrapper, h5 {
   display: inline-block;
 }
-.liqpay-wrapper .logotype-wrapper img {
+
+.mod-liqpay-logotype-wrapper img {
   max-height: 4rem;
 }
-.liqpay-wrapper .amounts {
+
+.mod-liqpay-amounts {
   padding: 2rem 0;
 }
-.liqpay-wrapper .amounts .amount-tag {
+.mod-liqpay-amounts .mod-liqpay-amount-tag {
   font-size: 1rem;
   font-weight: 300;
   padding: 0.5rem 0.75rem;
@@ -28,26 +42,27 @@
           transition-duration: 0.5s;
 }
 @media (max-width: 991.98px) {
-  .liqpay-wrapper .amounts .amount-tag {
+  .mod-liqpay-amounts .mod-liqpay-amount-tag {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     display: inline-block;
   }
 }
-.liqpay-wrapper .amounts .amount-tag.active {
+.mod-liqpay-amounts .mod-liqpay-amount-tag.active {
   background: #2ba84a;
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
 }
-.liqpay-wrapper .amounts .amount-tag em {
+.mod-liqpay-amounts .mod-liqpay-amount-tag em {
   display: inline-block;
   font-style: normal;
 }
-.liqpay-wrapper .amounts .amount-tag em:nth-child(2) {
+.mod-liqpay-amounts .mod-liqpay-amount-tag em:nth-child(2) {
   min-width: 0.75rem;
   text-align: center;
 }
-.liqpay-wrapper .payment-methods {
+
+.mod-liqpay-payment-methods {
   list-style: none;
   margin: 1rem 0;
   padding: 0;
@@ -55,29 +70,64 @@
   display: -ms-flexbox;
   display: flex;
 }
-.liqpay-wrapper .payment-methods li {
+.mod-liqpay-payment-methods li {
   padding: 0.25rem 0.75rem;
   margin-right: 0.5rem;
   border: 0.0625rem solid rgba(171, 198, 221, 0.25);
   border-radius: 0.25rem;
 }
-.liqpay-wrapper .payment-methods li img {
+.mod-liqpay-payment-methods li img {
   min-height: 1.75rem;
   max-height: 1.75rem;
   display: inline-block;
 }
-.liqpay-wrapper .payment-methods li span {
+.mod-liqpay-payment-methods li span {
   display: inline-block;
 }
-.liqpay-wrapper .payment-methods li span.name {
+.mod-liqpay-payment-methods li span.mod-liqpay-name {
   display: none;
 }
-.liqpay-wrapper .btn_text {
+
+.mod-liqpay-payment-text-before, .mod-liqpay-payment-text-after {
+  padding: 1rem 0.5rem;
+}
+
+.mod-liqpay-service-heading {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.mod-liqpay-service-description {
+  font-size: 0.875rem;
+}
+
+.mod-liqpay-service-heading, .mod-liqpay-service-description {
+  padding: 0.125rem 0.125rem 0.125rem 1rem;
+}
+
+span[class*=mod-liqpay-price] {
+  display: block;
+  font-weight: 500;
+  text-align: center;
+}
+
+.mod-liqpay-price {
+  font-size: 1.125rem;
+  color: #2ba84a;
+}
+.mod-liqpay-price-old {
+  font-size: 0.875rem;
+  text-decoration: line-through;
+  color: #bebbbb !important;
+}
+
+div[class*=mod-liqpay-wrapper] .btn_text {
   color: white;
   background: #2ba84a;
   border: 0.0625rem solid #269441;
   font-size: 1.25rem;
   font-weight: 300;
+  white-space: nowrap;
   border-radius: 0.125rem;
   -webkit-box-shadow: 2px 2px 2px rgba(43, 168, 74, 0.25);
           box-shadow: 2px 2px 2px rgba(43, 168, 74, 0.25);
@@ -85,35 +135,40 @@
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.liqpay-wrapper .btn_text:hover {
+div[class*=mod-liqpay-wrapper] .btn_text:hover {
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.liqpay-wrapper .btn_text span {
+div[class*=mod-liqpay-wrapper] .btn_text span {
   display: inline-block;
   padding: 0.5rem 1.5rem;
 }
-.liqpay-wrapper .btn_text span:nth-child(1) {
+div[class*=mod-liqpay-wrapper] .btn_text span:nth-child(1) {
   padding: 0.5rem 1rem;
   background: #269441;
 }
-.liqpay-wrapper .btn_text[disabled] {
+div[class*=mod-liqpay-wrapper] .btn_text[disabled] {
   -webkit-filter: grayscale(1);
           filter: grayscale(1);
 }
-.liqpay-wrapper .additional-info {
+
+.mod-liqpay-wrapper-group .btn_text {
+  font-size: 1rem;
+}
+
+.mod-liqpay-additional-info {
   padding-left: 1rem;
   border-left: 0.0625rem solid #ced4da;
   font-size: 0.875rem;
 }
 @media (max-width: 991.98px) {
-  .liqpay-wrapper .additional-info {
+  .mod-liqpay-additional-info {
     padding: 1rem 0;
     border-left: none;
     overflow-wrap: break-word;
   }
 }
-.liqpay-wrapper .additional-info p {
+.mod-liqpay-additional-info p {
   padding: 0;
   margin: 0.1875rem 0;
 }

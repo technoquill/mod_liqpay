@@ -25,6 +25,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\Registry\Registry;
+use InvalidArgumentException;
 use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 use Joomla\Module\Liqpay\Site\Contracts\MessageInterface;
 use Joomla\Module\Liqpay\Site\Library\LiqPayPayment;
@@ -52,11 +53,12 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
      */
     public static ?CMSApplicationInterface $app = null;
 
+
     /**
-     * @var int|null
+     * @var array
      * @since  4.2.0
      */
-    private static ?int $order_id = null;
+    private static $registry = [];
 
 
     /**
@@ -79,9 +81,6 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
         if (self::$app === null) {
             self::$app = $app;
         }
-        if (self::$order_id === null) {
-            self::$order_id = time();
-        }
     }
 
 
@@ -93,10 +92,8 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
      */
     public function ajaxForm(): string
     {
-
         return (new LiqPayPayment($this->ajaxDataResult['public_key'], $this->ajaxDataResult['private_key']))
             ->cnb_form([
-                'id' => $this->ajaxDataResult['id'],
                 'action' => $this->ajaxDataResult['action'],
                 'language' => $this->ajaxDataResult['language'],
                 'btn_text' => $this->ajaxDataResult['btn_text'],
@@ -108,8 +105,41 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
                 'server_url' => $this->ajaxDataResult['server_url'],
                 'result_url' => $this->ajaxDataResult['result_url'],
             ]);
-
     }
+
+    /**
+     * @param string $public_key
+     * @param string $private_key
+     * @param array  $params
+     *
+     * @return string
+     * @throws \JsonException
+     * @author overnet
+     * @since
+     */
+    public function createLiqPayForm(string $public_key, string $private_key, array $params = [
+        'order_id' => null, 'amount' => null, 'currency' => null, 'description' => null, 'btn_text' => null, 'module_id' => null
+    ]): string
+    {
+        if (count($params) !== 6) {
+            throw new InvalidArgumentException('You must fill in all these fields: order_id, amount, currency, description, btn_text, module_id');
+        }
+        $route = \JUri::base() . 'index.php?' . $this->currentRoute;
+        return (new LiqPayPayment($public_key, $private_key))
+            ->cnb_form([
+                'action' => $params['module_id'] ? $this->moduleField($params['module_id'], 'action') : null,
+                'language' => $this->language,
+                'btn_text' => ($params['btn_text'] !== null && $params['btn_text'] !== "") ? $params['btn_text'] : Text::_('MOD_LIQPAY_BTN_TEXT'),
+                'version' => LiqPayPayment::VERSION,
+                'order_id' => $params['order_id'],
+                'amount' => $params['amount'],
+                'currency' => $params['currency'],
+                'description' => $params['description'],
+                'server_url' => $route . '&module=liqpay&method=finish&order_id=' . $params['order_id'],
+                'result_url' => $route . '&module=liqpay&method=redirect&order_id=' . $params['order_id'],
+            ]);
+    }
+
 
     /**
      * @param string|null $btnText
@@ -270,18 +300,20 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
             $postData = json_decode($post, true, 512, JSON_THROW_ON_ERROR);
         }
 
+        if (!isset(self::$registry['order'])) {
+            self::$registry['order'] = time();
+        }
         $route = \JUri::base() . 'index.php?' . urldecode($postData['route']);
         return array_merge([
-            'id' => self::FORM_NAME,
             'public_key' => $postData['module_id'] ? $this->moduleField($postData['module_id'], 'public_key') : null,
             'private_key' => $postData['module_id'] ? $this->moduleField($postData['module_id'], 'private_key') : null,
             'action' => $postData['module_id'] ? $this->moduleField($postData['module_id'], 'action') : null,
             'language' => $this->language,
             'btn_text' => Text::_('MOD_LIQPAY_BTN_TEXT'),
             'version' => LiqPayPayment::VERSION,
-            'order_id' => self::$order_id,
-            'server_url' => $route . '&module=liqpay&method=finish&order_id=' . self::$order_id,
-            'result_url' => $route . '&module=liqpay&method=redirect&order_id=' . self::$order_id,
+            'order_id' => self::$registry['order'],
+            'server_url' => $route . '&module=liqpay&method=finish&order_id=' . self::$registry['order'],
+            'result_url' => $route . '&module=liqpay&method=redirect&order_id=' . self::$registry['order'],
         ], $postData);
     }
 

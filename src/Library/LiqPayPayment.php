@@ -195,10 +195,8 @@ final class LiqPayPayment
      * @throws InvalidArgumentException|JsonException
      * @since       3.9.0
      */
-    public function cnb_form(array $params)
+    public function cnb_form(array $params): string
     {
-        $id = $params['id'];
-        //$language = $params['language'];
         $btn_text = $params['btn_text'];
 
         $params = $this->cnb_params($params);
@@ -206,19 +204,17 @@ final class LiqPayPayment
         $signature = $this->cnb_signature($params);
 
         return sprintf('
-            <form method="POST" id="%s" action="%s" accept-charset="utf-8">
+            <form method="POST" action="%s" accept-charset="utf-8">
                 %s
                 %s
                 <button type="submit" class="btn_text"><span>&#x276D;&#x276D;</span><span>%s</span></button>
             </form>
             ',
-            $id,
             $this->_checkout_url,
             sprintf('<input type="hidden" name="%s" value="%s" />', 'data', $data),
             sprintf('<input type="hidden" name="%s" value="%s" />', 'signature', $signature),
             $btn_text
         );
-        //  <input type="hidden" src="/modules/mod_liqpay/assets/images/buttons/p1%s.radius.png" name="btn_text" />
     }
 
     /**
@@ -286,9 +282,6 @@ final class LiqPayPayment
         }
         if (!isset($params['description'])) {
             throw new InvalidArgumentException('description is null');
-        }
-        if (!isset($params['id'])) {
-            throw new InvalidArgumentException('id is null');
         }
         if (!isset($params['language'])) {
             throw new InvalidArgumentException('language is null');

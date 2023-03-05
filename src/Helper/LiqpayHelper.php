@@ -21,16 +21,18 @@ namespace Joomla\Module\Liqpay\Site\Helper;
 
 
 use Exception;
-use Joomla\CMS\HTML\HTMLHelper;
 use JsonException;
+use PHPMailer\PHPMailer\Exception as PHPMailerException;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Module\Liqpay\Site\Service\LiqpayService;
 use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
 use Joomla\Module\Liqpay\Site\Library\Traits\BindTrait;
+use Joomla\Module\Liqpay\Site\DTO\LiqpayModuleDTO;
 
 
 /**
@@ -48,23 +50,16 @@ class LiqpayHelper implements LiqpayFieldsInterface
     public LiqpayService $service;
 
     /**
-     * @var object|null
+     * @var LiqpayModuleDTO|null
      * @since
      */
-    public ?object $attributes = null;
+    public ?LiqpayModuleDTO $attributes = null;
 
     /**
      * @var \Joomla\CMS\Form\Form|null
      * @since 4.2.0
      */
     public ?Form $form = null;
-
-
-    /**
-     * @var array
-     * @since
-     */
-    public array $data = [];
 
 
     use BindTrait, ModuleTrait;
@@ -77,15 +72,15 @@ class LiqpayHelper implements LiqpayFieldsInterface
      */
     public function __construct(array $data = [])
     {
-        $this->bind([
-            'bindService', 'bindForm', 'bindWebAssets'
-        ]);
 
-        if (count($data)) {
-            $this->data = $data;
-        }
+        $this->bind(['bindService' => null, 'bindForm' => null, 'bindWebAssets' => null]);
+
+        // If not Ajax
         if ($data['params']) {
-            $this->attributes = $this->moduleFields($data['params']);
+            $attributes = $this->moduleFields($data['params'], [
+                'module_id' => $data['module'] ? $data['module']->id : null
+            ]);
+            $this->bind(['bindAttributes' => $attributes]);
             $this->finishAndRedirectAfterOrder($data['params']);
         }
     }
@@ -110,14 +105,13 @@ class LiqpayHelper implements LiqpayFieldsInterface
                 $result['form'] = $this->service->inactiveForm($this->service->ajaxDataResult['btn_text']);
             }
         }
-
         return $result;
-
     }
 
 
     /**
      * @throws JsonException
+     * @throws PHPMailerException
      * @since  4.2.0
      * @author overnet
      */
@@ -126,6 +120,8 @@ class LiqpayHelper implements LiqpayFieldsInterface
         $this->service->finish($registry);
         $this->service->redirect($registry);
     }
+
+
 
 
     /**
@@ -137,6 +133,18 @@ class LiqpayHelper implements LiqpayFieldsInterface
     {
         $app = Factory::getApplication();
         $this->service = new LiqpayService($app);
+    }
+
+
+    /**
+     * @param array $attributes
+     *
+     * @since  4.2.0
+     * @author overnet
+     */
+    private function bindAttributes(array $attributes): void
+    {
+        $this->attributes = LiqpayModuleDTO::make($attributes);
     }
 
     /**

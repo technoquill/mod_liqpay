@@ -52,7 +52,7 @@
                 />
 
                 <field name="public_key" type="text"
-                       default="sandbox_i64157259449"
+                       default=""
                        label="MOD_LIQPAY_PUBLIC_KEY_LABEL"
                        size="5"
                        filter="string"
@@ -60,7 +60,7 @@
                 />
 
                 <field name="private_key" type="text"
-                       default="sandbox_A1g9kuNCng0EDGMCH13bhGP2CCOKknVyCLHi4rKq"
+                       default=""
                        label="MOD_LIQPAY_PRIVATE_KEY_LABEL"
                        size="5"
                        required="true"
@@ -89,6 +89,18 @@
                     <option value="UAH">UAH</option>
                     <option value="USD">USD</option>
                     <option value="EUR">EUR</option>
+                </field>
+
+                <field
+                        name="disable_currency_select"
+                        type="radio"
+                        layout="joomla.form.field.radio.switcher"
+                        label="MOD_LIQPAY_DISABLE_CURRENCY_SELECT_LABEL"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
                 </field>
 
                 <field
@@ -133,7 +145,7 @@
 
                 <field name="simple_payment_purpose_of_payment"
                        type="textarea"
-                       label="MOD_LIQPAY_DESCRIPTION_LABEL"
+                       label="MOD_LIQPAY_SIMPLE_PAYMENT_DESCRIPTION_LABEL"
                        rows="3"
                        class="inputbox"/>
 
@@ -141,7 +153,7 @@
                         name="simple_payment_readonly_purpose_of_payment"
                         type="radio"
                         layout="joomla.form.field.radio.switcher"
-                        label="MOD_LIQPAY_READONLY_DESCRIPTION_LABEL"
+                        label="MOD_LIQPAY_SIMPLE_PAYMENT_READONLY_DESCRIPTION_LABEL"
                         default="0"
                         filter="integer"
                 >
@@ -153,7 +165,7 @@
                         name="simple_payment_default_amount"
                         type="text"
                         filter="integer"
-                        label="MOD_LIQPAY_DEFAULT_AMOUNT_LABEL"
+                        label="MOD_LIQPAY_SIMPLE_PAYMENT_DEFAULT_AMOUNT_LABEL"
                         class="inputbox"/>
 
                 <field name="simple_payment_amounts"
@@ -162,14 +174,21 @@
                        max="7"
                        multiple="true"
                        layout="joomla.form.field.subform.repeatable-table"
-                       label="MOD_LIQPAY_AMOUNTS_CHOICE_LABEL"/>
+                       label="MOD_LIQPAY_SIMPLE_PAYMENT_AMOUNTS_CHOICE_LABEL"/>
 
 
                 <field name="simple_payment_additional_info"
                        type="editor"
-                       label="MOD_LIQPAY_ADDITIONAL_INFO_LABEL"
+                       label="MOD_LIQPAY_SIMPLE_PAYMENT_ADDITIONAL_INFO_LABEL"
                        width="100%"
                        filter="safehtml" />
+
+
+
+                <field name="simple_payment_settings"
+                       type="subform"
+                       formsource="modules/mod_liqpay/forms/settings.xml"
+                       label="MOD_LIQPAY_SETTINGS_LABEL"/>
 
             </fieldset>
 
@@ -185,18 +204,17 @@
                        label="MOD_LIQPAY_GROUP_PAYMENT_LIST_LABEL"/>
 
 
-                <field name="group_payment_text_before"
+                <field name="group_payment_additional_info"
                        type="editor"
-                       label="MOD_LIQPAY_GROUP_PAYMENT_TEXT_BEFORE_LABEL"
+                       label="MOD_LIQPAY_GROUP_PAYMENT_ADDITIONAL_INFO_LABEL"
                        width="100%"
                        filter="safehtml" />
 
 
-                <field name="group_payment_text_after"
-                       type="editor"
-                       label="MOD_LIQPAY_GROUP_PAYMENT_TEXT_AFTER_LABEL"
-                       width="100%"
-                       filter="safehtml" />
+                <field name="group_payment_settings"
+                       type="subform"
+                       formsource="modules/mod_liqpay/forms/settings.xml"
+                       label="MOD_LIQPAY_SETTINGS_LABEL"/>
 
             </fieldset>
 
