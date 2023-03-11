@@ -29,7 +29,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Module\Liqpay\Site\Service\LiqpayService;
-use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
+use Joomla\Module\Liqpay\Site\Contracts\PaymentFormInterface;
 use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
 use Joomla\Module\Liqpay\Site\Library\Traits\BindTrait;
 use Joomla\Module\Liqpay\Site\DTO\LiqpayModuleDTO;
@@ -40,7 +40,7 @@ use Joomla\Module\Liqpay\Site\DTO\LiqpayModuleDTO;
  *
  * @since       4.2.0
  */
-class LiqpayHelper implements LiqpayFieldsInterface
+class LiqpayHelper implements PaymentFormInterface
 {
 
     /**
@@ -66,13 +66,14 @@ class LiqpayHelper implements LiqpayFieldsInterface
 
 
     /**
+     * @param array $data
      *
-     * @throws Exception
+     * @throws JsonException
+     * @throws PHPMailerException
      * @since 4.2.0
      */
     public function __construct(array $data = [])
     {
-
         $this->bind(['bindService' => null, 'bindForm' => null, 'bindWebAssets' => null]);
 
         // If not Ajax
@@ -120,8 +121,6 @@ class LiqpayHelper implements LiqpayFieldsInterface
         $this->service->finish($registry);
         $this->service->redirect($registry);
     }
-
-
 
 
     /**

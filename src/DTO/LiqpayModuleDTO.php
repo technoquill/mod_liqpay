@@ -34,6 +34,12 @@ final class LiqpayModuleDTO
 
     public string $email;
 
+    public array $settings = [
+        "show_logo_and_name" => null,
+        "show_additional_info" => null,
+        "show_payments_method" => null,
+    ];
+
     public ?string $simple_payment_purpose_of_payment;
 
     public int $simple_payment_readonly_purpose_of_payment;
@@ -44,21 +50,11 @@ final class LiqpayModuleDTO
 
     public ?string $simple_payment_additional_info;
 
-    public array $simple_payment_settings = [
-        "show_logo_and_name" => null,
-        "show_additional_info" => null,
-        "show_payments_method" => null,
-    ];
+    public int $group_payment_as_separate;
 
     public array $group_payment = [];
 
     public ?string $group_payment_additional_info;
-
-    public array $group_payment_settings = [
-        "show_logo_and_name" => null,
-        "show_additional_info" => null,
-        "show_payments_method" => null,
-    ];
 
     public string $layout;
 

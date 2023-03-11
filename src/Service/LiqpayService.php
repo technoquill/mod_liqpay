@@ -26,7 +26,6 @@ use Joomla\CMS\Router\SiteRouter;
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\Registry\Registry;
 use InvalidArgumentException;
-use Joomla\Module\Liqpay\Site\Contracts\LiqpayFieldsInterface;
 use Joomla\Module\Liqpay\Site\Contracts\MessageInterface;
 use Joomla\Module\Liqpay\Site\Library\LiqPayPayment;
 use Joomla\Module\Liqpay\Site\Library\Traits\DynamicPropertiesTrait;
@@ -44,7 +43,7 @@ use Joomla\Module\Liqpay\Site\Library\Traits\ModuleTrait;
  * @property array      $paymentTypes
  * @since  4.2.0
  */
-final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
+final class LiqpayService implements MessageInterface
 {
 
     /**
@@ -213,7 +212,10 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
                 );
             // then client message
             if ($api->status === self::MSG['success']) {
-                self::$app->enqueueMessage(Text::_('MOD_LIQPAY_THANKS'), CMSApplicationInterface::MSG_NOTICE);
+                self::$app->enqueueMessage(Text::sprintf(
+                    'MOD_LIQPAY_THANKS',
+                    $api->payment_id, $api->amount, $api->currency, $api->sender_first_name, $api->sender_last_name, $api->sender_phone)
+                , CMSApplicationInterface::MSG_NOTICE);
             }
             if ($api->status === self::MSG['error']) {
                 self::$app->enqueueMessage(Text::_('MOD_LIQPAY_PAYMENT_NOT_COUNTED'), CMSApplicationInterface::MSG_WARNING);
@@ -298,12 +300,14 @@ final class LiqpayService implements LiqpayFieldsInterface, MessageInterface
             ];
         } else {
             $postData = json_decode($post, true, 512, JSON_THROW_ON_ERROR);
+            $postData = array_map('strval', $postData);
         }
 
         if (!isset(self::$registry['order'])) {
             self::$registry['order'] = time();
         }
         $route = \JUri::base() . 'index.php?' . urldecode($postData['route']);
+
         return array_merge([
             'public_key' => $postData['module_id'] ? $this->moduleField($postData['module_id'], 'public_key') : null,
             'private_key' => $postData['module_id'] ? $this->moduleField($postData['module_id'], 'private_key') : null,

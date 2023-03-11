@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Joomla\Module\Liqpay\Site\Contracts;
 
 
-interface LiqpayFieldsInterface
+interface PaymentFormInterface
 {
 
     /**

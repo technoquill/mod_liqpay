@@ -23,9 +23,9 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
 
 <?php if ($model->attributes->logotype !== "" && $model->attributes->name !== "") : ?>
-    <div class="row">
+    <div class="row mod-liqpay-logotype-company-name-wrapper">
         <div class="col-auto">
-            <div class="mod-liqpay-logotype-wrapper">
+            <div class="mod-liqpay-logotype">
                 <?= HTMLHelper::_('image', $model->attributes->logotype, $model->attributes->name, [
                     'class' => 'img-fluid'
                 ], false) ?>

@@ -32,11 +32,12 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
 
                     <?= TemplateHelper::renderPartial('logotype', [
                         'model' => $model
-                    ]) ?>
+                    ], $model->attributes->settings['show_logo_and_name']) ?>
+
 
                     <?= TemplateHelper::renderPartial('amounts', [
                         'model' => $model
-                    ]) ?>
+                    ], count($model->attributes->simple_payment_amounts)) ?>
 
 
                     <div class="col-md-12">
@@ -70,9 +71,10 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
                                 <?= HTMLHelper::_('form.csrf') ?>
                             </div>
 
+
                             <?= TemplateHelper::renderPartial('payments', [
                                 'model' => $model
-                            ]) ?>
+                            ], $model->attributes->settings['show_payments_method'] && count($model->attributes->available_payments)) ?>
 
 
                         </form>
@@ -86,7 +88,7 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
                 </div>
 
 
-                <?php if ($model->attributes->simple_payment_additional_info !== "") : ?>
+                <?php if ($model->attributes->settings['show_additional_info'] && $model->attributes->simple_payment_additional_info !== "") : ?>
                     <div class="col-lg-5 col-md-12">
                         <div class="mod-liqpay-additional-info">
                             <?= $model->attributes->simple_payment_additional_info ?>
@@ -101,18 +103,13 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
 
 <?php else : ?>
 
-    <div class="mod-liqpay-wrapper-group group-payment">
+    <div class="mod-liqpay-wrapper-group group-payment<?php if ($model->attributes->group_payment_as_separate) : ?>-separate<?php endif ?>">
 
         <div class="mod-liqpay-view">
 
             <?= TemplateHelper::renderPartial('logotype', [
                 'model' => $model
-            ]) ?>
-
-
-            <?= TemplateHelper::renderPartial('payments', [
-                'model' => $model
-            ]) ?>
+            ], $model->attributes->settings['show_logo_and_name']) ?>
 
 
             <div class="mod-liqpay-table-view"
@@ -120,6 +117,29 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
                  data-module-id="<?= $model->attributes->module_id ?>"
                  data-btn-text="<?= Text::_('MOD_LIQPAY_BTN_TEXT') ?>"
                  data-route="<?= urlencode($model->service->currentRoute) ?>">
+
+
+                <div class="row align-items-center justify-content-end">
+                    <div class="col-sm-12 col-lg-8">
+                        <?= TemplateHelper::renderPartial('payments', [
+                            'model' => $model
+                        ], $model->attributes->settings['show_payments_method'] && count($model->attributes->available_payments)) ?>
+                    </div>
+
+                    <div class="col-md-6 col-lg-2">
+                        <div class="services-sum d-none">
+                            <span>0</span> <?= $model->service->currencySymbol[$model->attributes->currency] ?>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <?php if (!$model->attributes->group_payment_as_separate) : ?>
+                            <div class="services-payment" id="liqpay-form-result">
+                                <?= $model->service->inactiveForm() ?>
+                            </div>
+                        <?php endif ?>
+                    </div>
+
+                </div>
 
                 <?php $i = 0 ?>
                 <?php foreach ($model->attributes->group_payment as $key => $value) : ?>
@@ -145,21 +165,41 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
                     </span>
                         </div>
                         <div class="col-md-2">
-                            <?= $model->service->createLiqPayForm($model->attributes->public_key, $model->attributes->private_key, [
-                                'order_id' => md5(time() . $key),
-                                'amount' => $value->price,
-                                'currency' => $model->attributes->currency,
-                                'description' => Text::sprintf('MOD_LIQPAY_GROUP_PAYMENT_PAYMENT_MESSAGE', $value->name),
-                                'btn_text' => '',
-                                'module_id' => (string)$model->attributes->module_id
-                            ]) ?>
+                            <?php if ($model->attributes->group_payment_as_separate) : ?>
+                                <?= $model->service->createLiqPayForm($model->attributes->public_key, $model->attributes->private_key, [
+                                    'order_id' => md5(time() . $key),
+                                    'amount' => $value->price,
+                                    'currency' => $model->attributes->currency,
+                                    'description' => Text::sprintf('MOD_LIQPAY_GROUP_PAYMENT_PAYMENT_MESSAGE', $value->name),
+                                    'btn_text' => '',
+                                    'module_id' => (string)$model->attributes->module_id
+                                ]) ?>
+                            <?php else : ?>
+                                <div class="check-form-wrapper">
+                                    <div class="form-check form-switch">
+                                        <input
+                                                data-name="<?= $value->name ?>"
+                                                data-reference-code="<?= $value->reference_code ?>"
+                                                data-value="<?= $value->price ?>"
+                                                class="form-check-input service-check"
+                                                type="checkbox"
+                                                id="<?= $key ?>"
+                                                value="<?= $value->price ?>">
+                                        <label class="form-check-label" for="<?= $key ?>">
+                                            <?= Text::_('MOD_LIQPAY_GROUP_PAYMENT_CHECK_SERVICE_LABEL') ?>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            <?php endif ?>
                         </div>
                     </div>
                 <?php endforeach ?>
 
             </div>
 
-            <?php if ($model->attributes->group_additional_info !== "") : ?>
+            <?php if ($model->attributes->settings['show_additional_info'] && $model->attributes->group_additional_info !== "") : ?>
                 <div class="mod-liqpay-payment-group-additional-info">
                     <?= $model->attributes->group_additional_info ?>
                 </div>

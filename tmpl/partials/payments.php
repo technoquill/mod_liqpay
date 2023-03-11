@@ -21,24 +21,21 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
 ?>
 
-
-<?php if (count($model->attributes->available_payments)) : ?>
-    <div class="col-md-12">
-        <ul class="mod-liqpay-payment-methods">
-            <?php foreach ($model->attributes->available_payments as $value) : ?>
-                <?php $imageSrc = JUri::base() . "modules/mod_liqpay/assets/images/methods/icon-{$value}.svg" ?>
-                <li data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="<?= $model->service->paymentTypes[$value] ?>">
-                                        <span class="mod-liqpay-logo">
-                                               <?= HTMLHelper::_('image', $imageSrc, $model->service->paymentTypes[$value], [
-                                                   'class' => 'img-fluid'
-                                               ], false) ?>
-                                        </span>
-                    <span class="mod-liqpay-name">
-                                            <?= $model->service->paymentTypes[$value] ?>
-                                        </span>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif ?>
+<div class="col-md-12">
+    <ul class="mod-liqpay-payment-methods">
+        <?php foreach ($model->attributes->available_payments as $value) : ?>
+            <?php $imageSrc = JUri::base() . "modules/mod_liqpay/assets/images/methods/icon-{$value}.svg" ?>
+            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                title="<?= $model->service->paymentTypes[$value] ?>">
+                        <span class="mod-liqpay-logo">
+                               <?= HTMLHelper::_('image', $imageSrc, $model->service->paymentTypes[$value], [
+                                   'class' => 'img-fluid'
+                               ], false) ?>
+                        </span>
+                <span class="mod-liqpay-name">
+                    <?= $model->service->paymentTypes[$value] ?>
+                </span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

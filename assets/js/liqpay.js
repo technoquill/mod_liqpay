@@ -78,5 +78,39 @@ jQuery(document).ready(function () {
     }
     if (jQuery('div').hasClass('group-payment')) {
 
+        let serviceCheck = jQuery('input.service-check');
+        let tableView = jQuery('.mod-liqpay-table-view');
+        let currency = tableView.attr('data-currency');
+        let module_id = tableView.attr('data-module-id');
+        let btn_text = tableView.attr('data-btn-text');
+        let route = tableView.attr('data-route');
+
+        serviceCheck.on('change', function () {
+            let total = 0;
+            let description = '';
+            let servicesSum = jQuery('.services-sum');
+            jQuery('input:checkbox:checked').each(function () {
+                total += isNaN(parseInt(jQuery(this).val())) ? 0 : parseInt(jQuery(this).val());
+                description += jQuery(this).attr('data-name').toLowerCase() + ";";
+            });
+            jQuery(".services-sum span").html(total);
+
+            if(total === 0) {
+                servicesSum.removeClass('d-block').addClass('d-none');
+                total = '';
+            } else {
+                servicesSum.removeClass('d-none').addClass('d-block');
+            }
+
+            generateForm({
+                amount: total,
+                currency: currency,
+                description: description,
+                module_id: module_id,
+                btn_text: btn_text,
+                route: route
+            });
+        });
+
     }
 });

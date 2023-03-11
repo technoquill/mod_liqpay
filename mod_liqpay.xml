@@ -139,6 +139,11 @@
                        required="true"
                 />
 
+                <field name="settings"
+                       type="subform"
+                       formsource="modules/mod_liqpay/forms/settings.xml"
+                       label="MOD_LIQPAY_SETTINGS_LABEL"/>
+
             </fieldset>
 
             <fieldset name="simple">
@@ -184,21 +189,27 @@
                        filter="safehtml" />
 
 
-
-                <field name="simple_payment_settings"
-                       type="subform"
-                       formsource="modules/mod_liqpay/forms/settings.xml"
-                       label="MOD_LIQPAY_SETTINGS_LABEL"/>
-
             </fieldset>
 
             <fieldset name="group">
+
+                <field
+                        name="group_payment_as_separate"
+                        type="radio"
+                        layout="joomla.form.field.radio.switcher"
+                        label="MOD_LIQPAY_GROUP_PAYMENT_CHECK_AS_SEPARATE_LABEL"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="0">JHIDE</option>
+                    <option value="1">JSHOW</option>
+                </field>
 
 
                 <field name="group_payment"
                        type="subform"
                        formsource="modules/mod_liqpay/forms/group.xml"
-                       max="7"
+                       max="8"
                        multiple="true"
                        layout="joomla.form.field.subform.repeatable-table"
                        label="MOD_LIQPAY_GROUP_PAYMENT_LIST_LABEL"/>
@@ -211,10 +222,6 @@
                        filter="safehtml" />
 
 
-                <field name="group_payment_settings"
-                       type="subform"
-                       formsource="modules/mod_liqpay/forms/settings.xml"
-                       label="MOD_LIQPAY_SETTINGS_LABEL"/>
 
             </fieldset>
 
