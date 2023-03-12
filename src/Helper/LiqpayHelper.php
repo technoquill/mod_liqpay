@@ -152,8 +152,6 @@ class LiqpayHelper implements PaymentFormInterface
      */
     private function bindForm(): void
     {
-        HTMLHelper::_('form.csrf');
-
         $form = new Form(self::FORM_NAME, [
             'control' => false,
             'class' => 'form-validate'
