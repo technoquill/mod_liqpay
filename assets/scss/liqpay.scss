@@ -223,6 +223,24 @@ div[class*="mod-liqpay-wrapper"] {
 }
 
 
+.liqpay-form-view {
+  display: inline-block;
+}
+
+.mod-liqpay-agreement-wrapper {
+
+  input[type="checkbox"] {
+    position: relative;
+    top: .625rem;
+    left: .25rem;
+  }
+  .form-check-input:checked {
+    background-color: $secondary-color !important;
+    border-color: $secondary-color !important;
+  }
+}
+
+
 .mod-liqpay-additional-info {
   padding-left: 1rem;
   border-left: .0625rem solid #ced4da;

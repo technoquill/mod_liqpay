@@ -4,98 +4,128 @@ const currencies = {
     "UAH": "&#8372;"
 };
 
-
-function generateForm(formData) {
-    Joomla.request({
-        url: 'index.php?option=com_ajax&module=liqpay&method=get&format=json',
-        method: 'post',
-        headers: {
-            'Cache-Control': 'no-cache',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: JSON.stringify(formData),
-        onBefore: function (xhr) {
-            //console.log(xhr);
-            // if return false - query will stop
-        },
-        onSuccess: function (response, xhr) {
-            if (response !== '') {
-                let result = JSON.parse(response);
-                //console.log(result.data.form);
-                jQuery('#liqpay-form-result').html(result.data.form);
+const generateForm = (formData, send = true) => {
+    if (send === true) {
+        Joomla.request({
+            url: 'index.php?option=com_ajax&module=liqpay&method=get&format=json',
+            method: 'post',
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: JSON.stringify(formData),
+            onBefore: function (xhr) {
+                // if return false - query will stop
+            },
+            onSuccess: function (response, xhr) {
+                if (response !== '') {
+                    let result = JSON.parse(response);
+                    jQuery('#liqpay-form-result').html(result.data.form);
+                }
+            },
+            onError: function (xhr) {
+                console.log('Oops, something went wrong!');
             }
-        },
-        onError: function (xhr) {
-            console.log('Oops, something went wrong!');
-        }
-    })
+        })
+    } else {
+        let btn_text = jQuery('.mod-liqpay-view').attr('data-btn-text');
+        let emptyForm = ' <form action="javascript:void(0)" accept-charset="utf-8">\n' +
+            '             <button disabled type="submit" class="btn_text"><span>&#x276D;&#x276D;</span><span>' + btn_text + '</span></button>\n' +
+            '            </form>'
+        jQuery('#liqpay-form-result').html(emptyForm);
+    }
 }
 
 
+/**
+ *
+ * @returns {boolean}
+ */
+const isFormValid = () => {
+    let form = document.getElementById('liqpay-form');
+    return document.formvalidator.isValid(form);
+}
+
+// TODO: it should've been rewrite ES6
 jQuery(document).ready(function () {
 
+    let liqpayFormView = jQuery('.liqpay-form-view');
+
+    let agreementInput = jQuery('input#agreement');
+    let agreementMessage = agreementInput.attr('data-message');
+
+    liqpayFormView.on('click', function (event) {
+        if (!agreementInput.is(':checked')) {
+            agreementInput.addClass('is-invalid form-control-danger invalid');
+            Joomla.renderMessages({
+                'error': [agreementMessage]
+            });
+            jQuery('html, body').animate({
+                scrollTop: parseInt(agreementInput.offset().top - 120)
+            }, 500);
+            event.preventDefault();
+        }
+    });
+
+    // Simple Payment
     if (jQuery('div').hasClass('simple-payment')) {
 
-        let amounts = jQuery('.mod-liqpay-amounts');
+        let liqpayForm = jQuery('#liqpay-form');
+
+        // Send Ajax - onchange form
+        liqpayForm.on('change', function () {
+            let formData = liqpayForm.serializeArray().reduce(function (obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            }, {});
+            generateForm(formData, isFormValid());
+            if(isFormValid()) {
+                Joomla.removeMessages();
+            }
+        });
+
+        // Send Ajax - onclick amount tag
         let inputAmount = jQuery('input[name=amount]');
         let amountTag = jQuery('.mod-liqpay-amount-tag');
         let amountTagSymbol = jQuery('.mod-liqpay-amount-tag .symbol');
 
-        let formData = {
-            amount: jQuery('#amount').val(),
-            currency: jQuery('#currency').val(),
-            description: jQuery('#description').val(),
-            module_id: jQuery('#module_id').val(),
-            btn_text: jQuery('#btn_text').val(),
-            route: jQuery('#route').val()
-        };
-
-        jQuery('#liqpay-form').on('change', function () {
-            generateForm(formData);
-        });
-        jQuery('select[name=currency]').on('change', function () {
-            let symbol = currencies[jQuery(this).val()];
-            amountTagSymbol.html(symbol);
-            generateForm(formData);
-        });
         amountTag.on('click', function () {
             let value = jQuery(this).attr('data-value');
             amountTag.removeClass('active');
             jQuery(this).addClass('active');
             inputAmount.val(value);
-            generateForm(formData);
+            liqpayForm.trigger('change');
         });
-        if (inputAmount.not(":empty")) {
-            generateForm(formData);
-        }
-        inputAmount.on('blur', function () {
-            let val = jQuery(this).val();
-            amountTag.removeClass('active');
-            if (val !== "") {
-                amounts.find('span[data-value=' + val + ']').addClass('active');
-            }
-        });
+
     }
+
+    // Group Payment
     if (jQuery('div').hasClass('group-payment')) {
 
         let serviceCheck = jQuery('input.service-check');
-        let tableView = jQuery('.mod-liqpay-table-view');
-        let currency = tableView.attr('data-currency');
-        let module_id = tableView.attr('data-module-id');
-        let btn_text = tableView.attr('data-btn-text');
-        let route = tableView.attr('data-route');
+        let modLiqpayView = jQuery('.mod-liqpay-view');
 
-        serviceCheck.on('change', function () {
+        let currency = modLiqpayView.attr('data-currency');
+        let module_id = modLiqpayView.attr('data-module-id');
+        let btn_text = modLiqpayView.attr('data-btn-text');
+        let route = modLiqpayView.attr('data-route');
+
+
+        serviceCheck.on('change', function (event) {
+
+            let servicesSum = jQuery('.services-sum');
+            let servicesSumTotal = jQuery('.services-sum span');
+
             let total = 0;
             let description = '';
-            let servicesSum = jQuery('.services-sum');
-            jQuery('input:checkbox:checked').each(function () {
-                total += isNaN(parseInt(jQuery(this).val())) ? 0 : parseInt(jQuery(this).val());
-                description += jQuery(this).attr('data-name').toLowerCase() + ";";
-            });
-            jQuery(".services-sum span").html(total);
 
-            if(total === 0) {
+            jQuery('input.service-check:checkbox:checked').each(function () {
+                total += isNaN(parseInt(jQuery(this).val())) ? 0 : parseInt(jQuery(this).val());
+                description += jQuery(this).attr('data-name') !== "" ? jQuery(this).attr('data-name').toLowerCase() + ";" : '';
+            });
+            servicesSumTotal.html(total);
+
+            if (total === 0) {
                 servicesSum.removeClass('d-block').addClass('d-none');
                 total = '';
             } else {
@@ -109,7 +139,11 @@ jQuery(document).ready(function () {
                 module_id: module_id,
                 btn_text: btn_text,
                 route: route
-            });
+            }, agreementInput.is(':checked'));
+        });
+
+        agreementInput.on('change', function () {
+            serviceCheck.trigger('change');
         });
 
     }
