@@ -32,6 +32,13 @@
            class="form-control"/>
 
 
+    <field name="agreement"
+           type="checkbox"
+           required="true"
+           label="MOD_LIQPAY_AGREEMENT_LABEL"
+           value="1"/>
+
+
     <field name="module_id"
            type="hidden"
            default=""/>

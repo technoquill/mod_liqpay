@@ -28,6 +28,10 @@ final class LiqpayModuleDTO
 
     public int $disable_currency_select;
 
+    public int $agreement = 0;
+
+    public string $agreement_menu_item;
+
     public string $action;
 
     public array $available_payments = [];

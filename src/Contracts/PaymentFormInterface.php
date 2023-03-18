@@ -70,4 +70,10 @@ interface PaymentFormInterface
      * @since
      */
     public const FIELD_ROUTE = 'route';
+
+    /**
+     * @var string
+     * @since
+     */
+    public const FIELD_AGREEMENT = 'agreement';
 }

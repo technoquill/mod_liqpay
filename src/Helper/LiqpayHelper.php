@@ -152,6 +152,9 @@ class LiqpayHelper implements PaymentFormInterface
      */
     private function bindForm(): void
     {
+        HTMLHelper::_('behavior.formvalidator');
+        HTMLHelper::_('form.csrf');
+
         $form = new Form(self::FORM_NAME, [
             'control' => false,
             'class' => 'form-validate'
@@ -164,6 +167,7 @@ class LiqpayHelper implements PaymentFormInterface
 
     /**
      *
+     * @throws \JsonException
      * @since 4.2.0
      */
     private function bindWebAssets(): void

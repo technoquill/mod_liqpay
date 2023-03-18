@@ -116,6 +116,14 @@
                 </field>
 
 
+                <field name="agreement_menu_item"
+                       type="menuitem"
+                       default="0"
+                       label="MOD_LIQPAY_AGREEMENT_MENU_ITEM_LABEL"
+                       required="true"
+                />
+
+
                 <field name="available_payments" type="checkboxes"
                        multiple="true"
                        checked="privat24,card,wallet"
@@ -186,7 +194,7 @@
                        type="editor"
                        label="MOD_LIQPAY_SIMPLE_PAYMENT_ADDITIONAL_INFO_LABEL"
                        width="100%"
-                       filter="safehtml" />
+                       filter="safehtml"/>
 
 
             </fieldset>
@@ -219,8 +227,7 @@
                        type="editor"
                        label="MOD_LIQPAY_GROUP_PAYMENT_ADDITIONAL_INFO_LABEL"
                        width="100%"
-                       filter="safehtml" />
-
+                       filter="safehtml"/>
 
 
             </fieldset>
