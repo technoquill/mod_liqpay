@@ -24,14 +24,14 @@ use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
 <?php if ($model->attributes->logotype !== "" && $model->attributes->name !== "") : ?>
     <div class="row mod-liqpay-logotype-company-name-wrapper">
-        <div class="col-auto">
+        <div class="col-md-auto col-sm-12">
             <div class="mod-liqpay-logotype">
                 <?= HTMLHelper::_('image', $model->attributes->logotype, $model->attributes->name, [
                     'class' => 'img-fluid'
                 ], false) ?>
             </div>
         </div>
-        <div class="col-auto align-self-center">
+        <div class="col-md-auto col-sm-12 align-self-center">
             <h5 class="mod-liqpay-company-name"><?= $model->attributes->name ?></h5>
         </div>
     </div>

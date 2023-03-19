@@ -12,7 +12,6 @@ declare(strict_types=1);
 \defined('_JEXEC') or die;
 
 
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Module\Liqpay\Site\Helper\LiqpayHelper;
 
 /**

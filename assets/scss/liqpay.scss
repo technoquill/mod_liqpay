@@ -38,13 +38,20 @@ $dark-gray-color: gray;
 
 .mod-liqpay-logotype-company-name-wrapper {
   margin-bottom: 1rem;
+  @media (max-width: 767.98px) {
+    text-align: center;
+  }
 }
+
 .mod-liqpay-logotype, .mod-liqpay-company-name {
   display: inline-block;
+  @media (max-width: 767.98px) {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
 }
 
 .mod-liqpay-company-name {
-  //padding: 1rem 0;
 }
 
 .mod-liqpay-logotype {
@@ -200,9 +207,21 @@ div[class*="mod-liqpay-wrapper"] {
 }
 
 
+
+.agreement-align-container {
+  @media (min-width: 767.98px) {
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+}
+
 .mod-liqpay-wrapper-group {
   .btn_text {
     font-size: 1rem;
+  }
+
+  @media (max-width: 767.98px) {
+    text-align: center;
   }
 
   .form-check-input:checked {
@@ -218,6 +237,9 @@ div[class*="mod-liqpay-wrapper"] {
 
   .check-form-wrapper {
     margin: 0 auto;
+    @media (max-width: 767.98px) {
+      display: inline-block;
+    }
   }
 
 }
@@ -234,11 +256,28 @@ div[class*="mod-liqpay-wrapper"] {
     top: .625rem;
     left: .25rem;
   }
+
   .form-check-input:checked {
     background-color: $secondary-color !important;
     border-color: $secondary-color !important;
   }
 }
+
+.services-payment {
+  @media (max-width: 767.98px) {
+    text-align: center;
+    display: block;
+    padding: 1rem 0;
+  }
+
+  button {
+    @media (max-width: 767.98px) {
+      display: inline-block;
+    }
+  }
+}
+
+
 
 
 .mod-liqpay-additional-info {

@@ -130,19 +130,19 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
 
 
                 <div class="row align-items-center justify-content-end">
-                    <div class="col-sm-12 col-lg-8">
+                    <div class="col-sm-12 col-md-12 col-lg-8">
                         <?= TemplateHelper::renderPartial('payments', [
                             'model' => $model
                         ], $model->attributes->settings['show_payments_method'] && count($model->attributes->available_payments)) ?>
                     </div>
 
                     <?php if (!$model->attributes->group_payment_as_separate) : ?>
-                    <div class="col-md-6 col-lg-2">
+                    <div class="col-sm-12 col-md-6 col-lg-2">
                         <div class="services-sum d-none">
                             <span>0</span> <?= $model->service->currencySymbol[$model->attributes->currency] ?>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-2">
+                    <div class="col-sm-12 col-md-4 col-lg-2">
                         <?php if (!$model->attributes->group_payment_as_separate) : ?>
                             <div class="services-payment liqpay-form-view" id="liqpay-form-result">
                                 <?= $model->service->inactiveForm() ?>
@@ -151,8 +151,8 @@ use Joomla\Module\Liqpay\Site\Helper\TemplateHelper;
                     </div>
                     <?php endif ?>
 
-                    <div class="col-md-12 col-lg-4">
-                        <div class="d-flex justify-content-end">
+                    <div class="col-sm-12 col-md-8 col-lg-4">
+                        <div class="agreement-align-container">
                             <?= TemplateHelper::renderPartial('agreement', [
                                 'model' => $model
                             ]) ?>

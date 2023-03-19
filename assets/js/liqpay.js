@@ -28,6 +28,7 @@ const generateForm = (formData, send = true) => {
             }
         })
     } else {
+        // TODO: it should've been rewrite ES6
         let btn_text = jQuery('.mod-liqpay-view').attr('data-btn-text');
         let emptyForm = ' <form action="javascript:void(0)" accept-charset="utf-8">\n' +
             '             <button disabled type="submit" class="btn_text"><span>&#x276D;&#x276D;</span><span>' + btn_text + '</span></button>\n' +
