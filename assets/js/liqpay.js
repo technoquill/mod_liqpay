@@ -80,7 +80,7 @@ jQuery(document).ready(function () {
                 return obj;
             }, {});
             generateForm(formData, isFormValid());
-            if(isFormValid()) {
+            if (isFormValid()) {
                 Joomla.removeMessages();
             }
         });
@@ -90,12 +90,35 @@ jQuery(document).ready(function () {
         let amountTag = jQuery('.mod-liqpay-amount-tag');
         let amountTagSymbol = jQuery('.mod-liqpay-amount-tag .symbol');
 
+        // set focus in amount input
+        inputAmount.on('focus', function () {
+            return true;
+        });
+
         amountTag.on('click', function () {
-            let value = jQuery(this).attr('data-value');
+            // Fix: set focus for amount input because form error message should not appear
+            inputAmount.trigger('focus');
+
+            // Here we are making the chores
+            let tagValue = jQuery(this).attr('data-value');
             amountTag.removeClass('active');
             jQuery(this).addClass('active');
-            inputAmount.val(value);
-            liqpayForm.trigger('change');
+            inputAmount.val(tagValue);
+
+            // Fix if agreement input is not check: do not sent form and do not validate it
+            if (agreementInput.is(':checked')) {
+                liqpayForm.trigger('change');
+            }
+        });
+
+        // Comparison between amount tag value and input amount value
+        inputAmount.on('blur', function () {
+            let amounts = jQuery('.mod-liqpay-amounts');
+            let amountValue = jQuery(this).val();
+            amountTag.removeClass('active');
+            if (amountValue !== "") {
+                amounts.find('span[data-value=' + amountValue + ']').addClass('active');
+            }
         });
 
     }
