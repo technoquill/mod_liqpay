@@ -84,6 +84,21 @@ final class LiqpayService implements MessageInterface
 
 
     /**
+     *
+     * @return array
+     * @since 4.2.0
+     */
+    public static function getMessages(): array
+    {
+        return [
+            self::MSG['success'] => Text::_('MOD_LIQPAY_MESSAGE_SUCCESS'),
+            self::MSG['warning'] => Text::_('MOD_LIQPAY_WARNING'),
+            self::MSG['error'] => Text::_('MOD_LIQPAY_ERROR')
+        ];
+    }
+
+
+    /**
      * @return string
      * @throws \JsonException
      * @author overnet
@@ -354,20 +369,6 @@ final class LiqpayService implements MessageInterface
         return $langTag[0] ?? 'en';
     }
 
-
-    /**
-     *
-     * @return array
-     * @since 4.2.0
-     */
-    private static function getMessages(): array
-    {
-        return [
-            self::MSG['success'] => Text::_('MOD_LIQPAY_MESSAGE_SUCCESS'),
-            self::MSG['warning'] => Text::_('MOD_LIQPAY_WARNING'),
-            self::MSG['error'] => Text::_('MOD_LIQPAY_ERROR')
-        ];
-    }
 
     /**
      *

@@ -76,4 +76,10 @@ interface PaymentFormInterface
      * @since
      */
     public const FIELD_AGREEMENT = 'agreement';
+
+    /**
+     * @return array
+     * @since
+     */
+    public function getAjax(): array;
 }

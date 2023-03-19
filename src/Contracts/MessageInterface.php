@@ -25,4 +25,12 @@ interface MessageInterface
         'warning' => 'warning',
         'error' => 'error',
     ];
+
+
+    /**
+     * @return array
+     * @author overnet
+     * @since
+     */
+    public static function getMessages(): array;
 }
