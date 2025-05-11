@@ -1,7 +1,10 @@
 # mod_liqpay – LiqPay Payment Module for Joomla 4+
 
 ![Joomla](https://img.shields.io/badge/Joomla-4.2%2B-blue?style=flat-square&logo=joomla)
-![PHP](https://img.shields.io/badge/PHP-8.x-8892BF?style=flat-square&logo=php)
+![PHP](https://img.shields.io/badge/PHP-78.1%25-8892BF?style=flat-square&logo=php)
+![JavaScript](https://img.shields.io/badge/JavaScript-8.0%25-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![CSS](https://img.shields.io/badge/CSS-7.3%25-1572B6?style=flat-square&logo=css3&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-6.6%25-CC6699?style=flat-square&logo=sass&logoColor=white)
 ![Language](https://img.shields.io/github/languages/top/technoquill/mod_liqpay?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
