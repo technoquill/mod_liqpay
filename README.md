@@ -46,7 +46,7 @@ The module includes interface translations for:
 - **Module Type** – choose between simple or grouped payment
 - **Currency** – default currency (UAH, USD, EUR)
 - **Allow currency change** – optional switch for frontend users
-- **Payment Type** – `pay`, `donate`, or custom value
+- **Payment Type** – `pay`, `donate`
 - **Terms URL** – optional link to public offer/agreement
 - **Available Payment Methods** – checkboxes for LiqPay, Privat24, Apple Pay, etc.
 - **Notification Email** – address for transaction alerts
