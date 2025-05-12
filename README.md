@@ -92,7 +92,8 @@ You are free to use, modify, and distribute it in commercial and non-commercial 
 
 Preview of the donation/payment form rendered by the module:
 
-![LiqPay Module Frontend Preview](https://raw.githubusercontent.com/technoquill/mod_liqpay/main/images/mod_liqpay_frontpage_donate.png)
+![LiqPay Module Frontend Preview](https://raw.githubusercontent.com/technoquill/project-media/main/mod_liqpay/frontend-preview.png)
+
 
 ---
 
