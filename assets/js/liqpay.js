@@ -122,6 +122,14 @@ jQuery(document).ready(function () {
             }
         });
 
+        // Set a true value for amountTag (change amountTagSymbol) when we are changing currency select
+        let currencySelect = jQuery('select#currency');
+        currencySelect.on('change', function () {
+            let currencyValue = jQuery(this).val();
+            amountTagSymbol.html(currencies[currencyValue])
+        })
+
+
     }
 
     // Group Payment
