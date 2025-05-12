@@ -1,7 +1,8 @@
 # mod_liqpay – LiqPay Payment Module for Joomla 4.2.x or higher
 
 ![Joomla](https://img.shields.io/badge/Joomla-4.2%2B-blue?style=flat-square&logo=joomla)
-![PHP](https://img.shields.io/badge/PHP-7.2-8892BF?style=flat-square&logo=php)
+![PHP](https://img.shields.io/badge/PHP-7.2.5-mimimum-8892BF?style=flat-square&logo=php)
+![PHP](https://img.shields.io/badge/PHP-8.x-support-8892BF?style=flat-square&logo=php)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Repo size](https://img.shields.io/github/repo-size/technoquill/mod_liqpay?style=flat-square)
 
@@ -9,7 +10,7 @@ The **mod_liqpay** module allows you to integrate the **LiqPay** payment system 
 LiqPay is a widely used Ukrainian payment service that supports multiple payment methods, including bank cards (Visa, MasterCard), Google Pay, Apple Pay, QR-code, and more.
 
 > **Note:**  
-> This module supports **Joomla 4.2 and higher**, using the new OOP-based module structure introduced in Joomla 4.2+.
+> This module supports **Joomla 4.2 and higher**, using the new OOP-based module structure introduced in Joomla 4.2.x.
 
 ---
 
@@ -66,7 +67,7 @@ The module includes interface translations for:
 ## 🛠 Requirements
 
 - Joomla **4.2 or newer**
-- PHP **7.2 or higher**
+- PHP **7.2.5 or higher**
 - Valid **LiqPay merchant account**
 
 ---
