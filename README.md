@@ -2,7 +2,6 @@
 
 ![Joomla](https://img.shields.io/badge/Joomla-4.2%2B-blue?style=flat-square&logo=joomla)
 ![PHP](https://img.shields.io/badge/PHP-7.2.5-8892BF?style=flat-square&logo=php)
-![PHP](https://img.shields.io/badge/PHP-8.x-8892BF?style=flat-square&logo=php)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Repo size](https://img.shields.io/github/repo-size/technoquill/mod_liqpay?style=flat-square)
 
