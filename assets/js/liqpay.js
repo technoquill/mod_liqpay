@@ -6,8 +6,9 @@ const currencies = {
 
 const generateForm = (formData, send = true) => {
     if (send === true) {
+        let ajaxUrl = 'index.php?option=com_ajax&amp;module=liqpay&method=get&amp;format=json';
         Joomla.request({
-            url: 'index.php?option=com_ajax&module=liqpay&method=get&format=json',
+            url: `${window.location.protocol}//${window.location.hostname}/${ajaxUrl}`,
             method: 'post',
             headers: {
                 'Cache-Control': 'no-cache',
