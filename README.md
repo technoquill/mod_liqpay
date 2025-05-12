@@ -8,6 +8,8 @@
 The **mod_liqpay** module allows you to integrate the **LiqPay** payment system into your Joomla 4+ based website.  
 LiqPay is a widely used Ukrainian payment service that supports multiple payment methods, including bank cards (Visa, MasterCard), Google Pay, Apple Pay, QR-code, and more.
 
+![Frontend View](https://raw.githubusercontent.com/technoquill/project-media/main/mod_liqpay/frontend-preview.png)
+
 > **Note:**  
 > This module supports **Joomla 4.2 and higher**, using the new OOP-based module structure introduced in Joomla 4.2+.
 
