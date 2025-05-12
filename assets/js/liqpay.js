@@ -6,8 +6,9 @@ const currencies = {
 
 const generateForm = (formData, send = true) => {
     if (send === true) {
+        let ajaxUrl = 'index.php?option=com_ajax&amp;module=liqpay&method=get&amp;format=json';
         Joomla.request({
-            url: 'index.php?option=com_ajax&module=liqpay&method=get&format=json',
+            url: `${window.location.protocol}//${window.location.hostname}/${ajaxUrl}`,
             method: 'post',
             headers: {
                 'Cache-Control': 'no-cache',
@@ -120,6 +121,14 @@ jQuery(document).ready(function () {
                 amounts.find('span[data-value=' + amountValue + ']').addClass('active');
             }
         });
+
+        // Set a true value for amountTag (change amountTagSymbol) when we are changing currency select
+        let currencySelect = jQuery('select#currency');
+        currencySelect.on('change', function () {
+            let currencyValue = jQuery(this).val();
+            amountTagSymbol.html(currencies[currencyValue])
+        })
+
 
     }
 
